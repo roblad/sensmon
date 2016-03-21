@@ -1,0 +1,10 @@
+[Service]
+
+
+Description=SensbaseTX by RL from artekw usb serial monitor
+
+Type=simple
+ExecStart=/usr/bin/remserial -m 2 -d -p 2000 -s "57600 raw" /dev/ttyUSB0 &
+
+[Install]
+WantedBy=multi-user.target

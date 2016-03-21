@@ -1,0 +1,19 @@
+*.py[co]
+*.swp
+
+# Packages
+*.egg
+*.egg-info
+dist
+build
+eggs
+parts
+bin
+var
+tests
+sdist
+sensmon_db
+develop-eggs
+.installed.cfg
+sync.py
+sync.sh

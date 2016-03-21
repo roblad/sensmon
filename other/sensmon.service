@@ -1,0 +1,9 @@
+[Unit]
+Description=sensmon
+
+[Service]
+Type=forking
+WorkingDirectory=/home/pi/sensmon/
+ExecStart=/usr/bin/screen -d -m -S sensmon /usr/sbin/python2 /home/pi/sensmon/sensmon.py
+ExecStop=/usr/bin/killall -w -g /usr/sbin/python2
+

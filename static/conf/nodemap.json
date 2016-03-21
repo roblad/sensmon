@@ -1,0 +1,369 @@
+{
+
+"emonitor":
+    {
+        "id": 10,
+        "title": "Pomiar mocy i zbiornika",
+        "type": "output",
+        "sensors":
+        {
+
+			"mocc":
+            {
+                "unit": "W",
+                "desc": "Moc czynna",
+               
+                "scale": 2
+            },
+            "siec":
+            {
+                "unit": "V",
+                "desc": "Napięcie sieci",
+               
+                "scale": 2
+            },
+            "prad":
+            {
+                "unit": "A",
+                "desc": "Pobór prądu",
+               
+                "scale": 3
+            },
+			"mocb":
+            {
+                "unit": "VA",
+                "desc": "Moc pozorna",
+               
+                "scale": 2
+            },
+            "zuzycie":
+            {
+                "unit": "kWh",
+                "desc": "Akt. zuż. energii",
+               
+                "scale": 4
+            },			
+			"cenazuzycie":
+            {
+                "unit": "zł",
+                "desc": "Zuż. energii 1kWh/0.845745 zł",
+               
+                "scale": 5
+            },
+			"dzienna":
+            {
+                "unit": "zł",
+                "desc": "Zuż. dzienne prog. zł",
+               
+                "scale": 5
+            },			
+			"ftank":
+            {
+                "unit": "LEVEL",
+                "desc": "Poziom szamba",
+               
+                "scale": 0
+			},
+			"temp":
+            {
+                "unit": "°C",
+                "desc": "Temperatura",
+               
+                "scale": 2
+			},
+			"zzzbatvol":
+            {
+                "unit": "V",
+                "desc": "Napięcie noda",
+               
+                "scale": 4
+            },
+			"timestamp":
+            {
+                
+                "desc": "Aktualizacja"
+               
+            }
+          		
+        }
+    },
+
+    "outdoor":
+    {
+        "id": 4,
+        "title": "Pomiary zewnętrzne",
+        "type": "output",
+        "sensors":
+        {
+            "zbatvol":
+            {
+                "unit": "V",
+                "desc": "Napięcie baterii",
+               
+                "scale": 3
+            },
+			"thumi":
+            {
+                "unit": "%",
+                "desc": "Wilgotność",
+               
+                "scale": 1
+            },
+			"temp":
+            {
+                "unit": "°C",
+                "desc": "Temperatura powietrza",
+               
+                "scale": 1
+            },
+			"tgroundhumi":
+            {
+                "unit": "%",
+                "desc": "Wilgotność gleby",
+               
+                "scale": 1
+            },
+            "tempground":
+            {
+                "unit": "°C",
+                "desc": "Temperatura gleby",
+               
+                "scale": 2
+            },
+			"zzzsun":
+            {
+                "unit": "%",
+                "desc": "Nasłonecznienie",
+               
+                "scale": 1
+            },
+            "timestamp":
+            {
+                "desc": "Aktualizacja"
+                
+            }
+        }
+    },
+    "woda":
+    {
+        "id": 3,
+        "title": "Pomiar wody",
+        "type": "output",
+        "sensors":
+        {
+            "batvol":
+            {
+                "unit": "V",
+                "desc": "Napięcie baterii",
+               
+                "scale": 3
+            },
+            "zzzdeszcz":
+            {
+                "unit": "",
+                "desc": "Deszcz",
+				
+                "scale": 1
+            },
+            "temp":
+            {
+                "unit": "°C",
+                "desc": "Temperatura",
+               
+                "scale": 1
+            },
+            "pulse":
+            {
+                "unit": "m3",
+                "desc": "Zużycie wody",
+               
+                "scale": 2
+            },
+			"wop":
+            {
+                "unit": "zł",
+                "desc": "Zuż. 1m3/4,54 zł opłata",
+               
+                "scale": 2
+            },
+			"wor":
+            {
+                "unit": "wiader",
+                "desc": "Dzienne zużycie wody",
+               
+                "scale": 2
+            },
+			"wos":
+            {
+                "unit": "zł",
+                "desc": "Dzienne opłata wody",
+               
+                "scale": 2
+            },            
+            "timestamp":
+            {
+                "desc": "Aktualizacja"
+            }
+        }
+    },
+    "gaz":
+    {
+        "id": 2,
+        "title": "Pomiar gazu",
+        "type": "output",
+        "sensors":
+        {
+            "batvol":
+            {
+                "unit": "V",
+                "desc": "Napięcie baterii",
+               
+                "scale": 3
+            },
+            "temp":
+            {
+                "unit": "°C",
+                "desc": "Temperatura",
+               
+                "scale": 1
+            },
+			 "pulse":
+            {
+                "unit": "m3",
+                "desc": "Zuzycie gaz",
+               
+                "scale": 2
+            },
+			"zuzycieoplata":
+            {
+                "unit": "zł",
+                "desc": "Zuzycie 1m3/1.97 zł opłata",
+               
+                "scale": 2
+            },
+			"zd":
+            {
+                "unit": "m3",
+                "desc": "Zuzycie dzienne",
+               
+                "scale": 2
+            },
+			"zdoplata":
+            {
+                "unit": "zł",
+                "desc": "Zuzycie dzienne opłata",
+               
+                "scale": 2
+            },            
+			"timestamp":
+            {
+                "desc": "Aktualizacja"
+            }
+        }
+    },
+	    "piec": {
+        "id": 1,
+        "title": "Pomiary garaż",
+        "type": "output",
+        "sensors":
+        {
+            "batvol":
+            {
+                "unit": "V",
+                "desc": "Napięcie noda",
+				
+                "scale": 4
+            },	
+            "trela3":
+            {
+                "unit": "", 
+                "desc": "Podlewanie taras",
+				
+                "scale": 1
+            },
+            "trela2":
+            {
+                "unit": "",
+                "desc": "Podlewanie bok",
+				
+                "scale": 1
+            },
+            "trela1":
+            {
+                "unit": "",
+                "desc": "Podlewanie front",
+				
+                "scale": 1
+            },		    
+			"tpowietrze":
+            {
+                "unit": "% m3",
+                "desc": "Powietrze Prefix: CZYSTE=0 DYM=1 CO=2 Gaz=3",
+               
+                "scale": 2
+            },
+            "twilg":
+            {
+                "unit": "%",
+                "desc": "Wilgotność",
+				
+                "scale": 2
+            },
+            "zztemp":
+            {
+                "unit": "°C",
+                "desc": "Temp. Garaż",
+				
+                "scale": 2
+            },
+            "tcis":
+            {
+                "unit": "hPa",
+                "desc": "Ciśnienie atm.",
+				
+                "scale": 1
+            },
+            "temp1ds":
+            {
+                "unit": "°C",
+                "desc": "Temp. boiler",
+				
+                "scale": 2
+            },
+            "ztemp2ds":
+            {
+                "unit": "°C",
+                "desc": "Temp. wejścia solar.",
+				
+                "scale": 2
+            },
+            "temp3ds":
+            {
+                "unit": "°C",
+                "desc": "Temp. powrot solar.",
+				
+                "scale": 2
+            },
+            "temp4ds":
+            {
+                "unit": "°C",
+                "desc": "Temp. wyj. piec",
+				
+                "scale": 2
+            },
+            "temp5ds":
+            {
+                "unit": "°C",
+                "desc": "Temp. pow. piec",
+				
+                "scale": 2
+            },
+
+		
+            "timestamp":
+            {
+              "desc": "Aktualizacja"
+            }
+        }
+    }
+}

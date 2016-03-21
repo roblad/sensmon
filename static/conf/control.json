@@ -1,0 +1,22 @@
+{ 
+       "piec": {
+        "id": 1,
+        "title": "Pomiary garaż",
+        "type": "control",
+        "sensors":{
+        "01": {
+            "desc": "Podlewanie front",
+            "state": 0
+        },
+        "02": {
+            "desc": "Podlewanie bok",
+            "state": 0
+        },
+        "03": {
+            "desc": "Podlewanie taras",
+            "state": 0
+        }
+
+    }
+       }
+}

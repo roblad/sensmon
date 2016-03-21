@@ -1,0 +1,38 @@
+﻿{
+    "webapp": {
+      "host": "0.0.0.0",
+      "port": 8081,
+      "password": "admin",
+      "iface": "eth0",
+      "verbose": 1
+    },
+    "serial": {
+      "port": 2000,
+      "host": "localhost"
+    },
+    "redis": {
+      "host": "localhost"
+    },
+    "leveldb": {
+      "enable": 1,
+      "dbname": "_db",
+      "path": ".",
+      "forgot": "powernode"
+      
+    },
+    "mail": {
+      "smtp" : "smtp.mail.com",
+      "port": 587,
+      "username": "user@mail.com",
+      "password": "pass",
+      "from": "sensmon",
+      "tls": true
+    },
+    "weather": {
+      "city": "Stanislawow Pierwszy",
+      "appid": "e03a133fd9094c28922ef5fc159189dc"
+    },
+    "aqi": {
+      "station": "u'Suwałki-Miejska, Polska'"
+    }
+}
