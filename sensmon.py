@@ -368,8 +368,11 @@ def main():
             except TypeError:
                 return
             update = decoder.update(decoded)
+            """
+            
+            #removed ater change of usbrelay check throug python script 22.03.16
             dir_current = os.getcwd()
-            #if not node_name.empty():
+            ######if not node_name.empty():
             print "Current directory for store data file result is: /mnt/data/ "
             if str(decoded) != 'None':
                 file = open("/mnt/data/"+(decoded['name'])+"_data_node.log", "a+")
@@ -380,13 +383,14 @@ def main():
                 file2.write (str(decoded))
                 file2.write("\n")
                 file2.close()
+            """
 #----------------------------------tu  pisac swoje razem z importem na poczatku ---------------------  
 
 #----------------------------------tu  pisac swoje razem z importem na poczatku ---------------------                  
-                if debug:
-                    print ("RAW: %s" % (result))
-                    print ("JSON %s" % (decoded))
-                    #print ("UPD %s" % (update))
+            if debug:
+                print ("RAW: %s" % (result))
+                print ("JSON %s" % (decoded))
+                #print ("UPD %s" % (update))
                     
                     
                     
