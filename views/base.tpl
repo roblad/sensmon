@@ -33,20 +33,8 @@
     <script src="/static/js/sensmonjs.js" type="text/javascript"></script>
 	<script src="/static/js/sensmonjsbis.js" type="text/javascript"></script>
 </head>
-<h3>
-<div class="container">
-   <div class="row">  
-    <div class="left"><button type="button" class="btn btn-success btn-sm" data-toggle="collapse" data-target="#zegar">Data Godzina</button> 
-	</div>
-     <div id="zegar"class="collapse">
-       <div class="intro" ng-controller="introCtrl">
-	   <div class="date">Dziś jest {{! today(clock) }} </div> 
-	   <div class="clock">{{! clock | date:'HH:mm:ss'}}</div>
-	 </div>
-    </div>
-   </div>
-</div>
-</h3>
+
+
 
     <div class="navbar-header" id="wrapper">
 	
@@ -106,7 +94,13 @@
 
         <div id="content">
 			<div class="container-fluid">
-
+  <h2><div class="container">
+   <div class="row">  
+    <div class="left"><button type="button" class="btn btn-success btn-sm" data-toggle="collapse" data-target="#zegar">Data Godzina</button> </div>
+     <div id="zegar"class="collapse">
+       <div class="intro" ng-controller="introCtrl"><div class="date">Dziś jest {{! today(clock) }} </div> <div class="clock">{{! clock | date:'HH:mm:ss'}}</div></div>
+     </div>
+   </div></h2>
 				{% block content %}{% end %}
 			</div>
         </div>

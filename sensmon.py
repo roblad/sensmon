@@ -299,7 +299,17 @@ def publish(jsondata):
     for k, v in jsondata.iteritems():
         mqtt.single("/sensmon/%s/%s" % (name, k), v, hostname=options.mqtt_broker, port=options.mqtt_port)
 
-        
+init = 0
+ 
+zmienna = init
+ 
+def funkcja():
+        global zmienna
+        if zmienna == 0:
+                print("rowna")
+        elif zmienna > 0:
+                print("wieksza")
+        zmienna = 0       
 
 # funkcja główna
 def main():
@@ -433,37 +443,16 @@ def main():
                 openpicklefilewrite = open(pickledir + '/' + picklefile, 'wb')
                 pickle.dump(store, openpicklefilewrite,-1 )
                 openpicklefilewrite.close()
-            
-                """
-                try:                
                 
-                    new_value = int(decoded['trela1'])
-                    print "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA: "  , new_value
-                    init = new_value
-                                
+                try: 
+                    global zmienna
+                    zmienna = int(decoded['trela1'])
                     if  (decoded['name']) == 'piec' and str(decoded) != 'None' : 
-                        relay_values = (decoded['trela1']), (decoded['trela2']) , (decoded['trela3'])
-                        print "P1 status ########################: ", relay_values[0], "P2 status#########################: ", relay_values[1],"P3 status######################: ", relay_values[2]
-                   
-                    
-                        zmienna = init
-
-                        def funkcja():
-                            global zmienna
-                            if zmienna == 0:
-                                print("rowna")
-                            elif zmienna > 0:
-                                print("wieksza")
-                            zmienna = 0
-
                         funkcja()
-                        #global old_value
-                        #global new_value   
-                        #old_value = new_value
-                    
-                except TypeError:
+
+                except KeyError:
                     pass
-                """    
+                   
 
                 if debug:
                     print pickledir 

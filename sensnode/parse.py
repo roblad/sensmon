@@ -83,7 +83,7 @@ print checkValue(p1)
 
 #os.system('mpc clear')
 #os.system('ls')
-#cmd = subprocess.Popen("ls",shell=True, stdout=subprocess.PIPE)
+#cmd = subprocess.Popen("ls",shell=True, stdout=subprocess.STDOUT)
 #stations = cmd.stdout.readlines()[0][1::3]
 #print stations
 
