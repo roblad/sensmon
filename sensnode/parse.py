@@ -1,4 +1,6 @@
-# -*- coding: utf-8
+#!/usr/bin/python2
+# -*- coding: utf-8 -*-
+"""
 import os
 import subprocess
 import redis
@@ -103,3 +105,4 @@ print checkValue(p1)
     #woda_actual == 0
     
 #woda_used_by_podlewaczka = round ((float ((float (woda_start_podlewaczka)) - float(last_line))),2)
+"""

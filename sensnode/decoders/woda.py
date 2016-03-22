@@ -7,7 +7,8 @@ import simplejson as json
 import sys
 import os
 import cPickle as pickle
-
+sys.path.insert(0,'..')
+from getrelays import checkrelays
 
 def woda(data):
     """Pomiar:
@@ -33,6 +34,7 @@ def woda(data):
     openpicklefileread.close()
     w1 = get_data[4]
     w2 = get_data[5]
+    w3 = get_data[9]
     a = float(data[2]) #deszcz
     b = float(data[3]) #temperatura
     c = float(data[4]) 
@@ -59,6 +61,7 @@ def woda(data):
         'wop': round ((e * 4.53),2),
         'wor': int(w1*100),
         'wos': round(w2,2),
+        'wob': int(w3),
         'timestamp':timestamp
 
         

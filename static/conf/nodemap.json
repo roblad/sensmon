@@ -160,7 +160,7 @@
             },
             "zzzdeszcz":
             {
-                "unit": "",
+                "unit": "status",
                 "desc": "Deszcz",
 				
                 "scale": 1
@@ -199,7 +199,14 @@
                 "desc": "Dzienne opłata wody",
                
                 "scale": 2
-            },            
+            },  
+			"wob":
+            {
+                "unit": "status",
+                "desc": "Blokada podlewania",
+               
+                "scale": 0
+            },            			
             "timestamp":
             {
                 "desc": "Aktualizacja"
@@ -276,21 +283,21 @@
             },	
             "trela3":
             {
-                "unit": "", 
+                "unit": "status", 
                 "desc": "Podlewanie taras",
 				
                 "scale": 1
             },
             "trela2":
             {
-                "unit": "",
+                "unit": "status",
                 "desc": "Podlewanie bok",
 				
                 "scale": 1
             },
             "trela1":
             {
-                "unit": "",
+                "unit": "status",
                 "desc": "Podlewanie front",
 				
                 "scale": 1

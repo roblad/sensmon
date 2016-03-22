@@ -39,6 +39,7 @@ from sensnode.weather import getWeather
 import sys
 import cPickle as pickle
 import redis
+from sensnode.getrelays import checkrelays
 #import sensnode.parse 
 
 
@@ -299,6 +300,10 @@ def publish(jsondata):
     for k, v in jsondata.iteritems():
         mqtt.single("/sensmon/%s/%s" % (name, k), v, hostname=options.mqtt_broker, port=options.mqtt_port)
 
+#test result        
+result_previous = 0
+        
+"""
 init = 0
  
 zmienna = init
@@ -310,7 +315,7 @@ def funkcja():
         elif zmienna > 0:
                 print("wieksza")
         zmienna = 0       
-
+"""
 # funkcja główna
 def main():
     taskQ = multiprocessing.Queue()
@@ -403,7 +408,7 @@ def main():
                     
                     if debug:
                         logger.debug("LevelDB: %s %s" % (key, decoded))
- 
+                        print ("LevelDB: %s %s" % (key, decoded))
                         
                         
 
@@ -428,8 +433,9 @@ def main():
                 gaz_first = round((history.get_toJSON_last( 'gaz', 'pulse','day')[-1]),2)
                 cena_gaz_last = round((history.get_toJSON_last( 'gaz', 'zuzycieoplata','day')[0]),2)
                 cena_gaz_first = round((history.get_toJSON_last( 'gaz', 'zuzycieoplata','day')[-1]),2)
-                furtka_state = 0
-                brama_state = 0
+                furtka_state = int(checkrelays(0))
+                brama_state = int(checkrelays(1))
+                podlewanie_blokada = int(checkrelays(5))
                 p1_state = history.get_toJSON_last( 'piec', 'trela1','1h')[0]
                 p2_state = history.get_toJSON_last( 'piec', 'trela2','1h')[0]
                 p3_state = history.get_toJSON_last( 'piec', 'trela3','1h')[0]
@@ -443,11 +449,20 @@ def main():
                 #sensnode.parse.test_values('piec','trela3') 
                 w1 = woda_last
                 #sensnode.parse.test_values('woda','pulse') 
-                store = p1,p2,p3,woda_last,round((woda_last - woda_first),2),round((cena_woda_last - cena_woda_first),2),round((gaz_last - gaz_first),2), round((cena_gaz_last - cena_gaz_first),2) 
+                store = (p1,
+                         p2,
+                         p3,
+                         woda_last,round((woda_last - woda_first),2),
+                         round((cena_woda_last - cena_woda_first),2),
+                         round((gaz_last - gaz_first),2),
+                         round((cena_gaz_last - cena_gaz_first),2),
+                         furtka_state, 
+                         brama_state,
+                         podlewanie_blokada)
                 openpicklefilewrite = open(pickledir + '/' + picklefile, 'wb')
                 pickle.dump(store, openpicklefilewrite,-1 )
                 openpicklefilewrite.close()
-                
+                """
                 try: 
                     global zmienna
                     zmienna = int(decoded['trela1'])
@@ -456,7 +471,7 @@ def main():
 
                 except KeyError:
                     pass
-                   
+                """   
 
                 if debug:
                     print pickledir 
@@ -468,6 +483,16 @@ def main():
                     print "opłata dziennego zuzycia wody: %s zł" % (cena_woda_last - cena_woda_first)
                     print "ostatnia wartosc dziennego zuzycia gazu: %s m3" % (gaz_last - gaz_first)
                     print "opłata dziennego zuzycia gazu: %s zł" % (cena_gaz_last - cena_gaz_first)
+                    #print "test czy dziala gpio test %s" % checkrelays(0)
+                    test = int(checkrelays(0))
+                    if test != result_previous:
+                        if test != 0:
+                            print "CHANGED"
+                            print "CHANGED"
+                        global result_previous
+                        result_previous = int(checkrelays(0))
+                    else:
+                        print "stara wartosc checkrelays %s" % checkrelays(0)
             except   ValueError:
                 pass
 
