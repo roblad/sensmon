@@ -43,14 +43,14 @@
                
                 "scale": 4
             },			
-			"cenazuzycie":
+			"zcenazuzycie":
             {
                 "unit": "zł",
                 "desc": "Zuż. energii 1kWh/0.845745 zł",
                
                 "scale": 5
             },
-			"dzienna":
+			"zdzienna":
             {
                 "unit": "zł",
                 "desc": "Zuż. dzienne prog. zł",
@@ -64,14 +64,14 @@
                
                 "scale": 0
 			},
-			"temp":
+			"zzztemp":
             {
                 "unit": "°C",
                 "desc": "Temperatura",
                
                 "scale": 2
 			},
-			"zzzbatvol":
+			"batvol":
             {
                 "unit": "V",
                 "desc": "Napięcie noda",
@@ -95,7 +95,7 @@
         "type": "output",
         "sensors":
         {
-            "zbatvol":
+            "batvol":
             {
                 "unit": "V",
                 "desc": "Napięcie baterii",
@@ -130,7 +130,7 @@
                
                 "scale": 2
             },
-			"zzzsun":
+			"sun":
             {
                 "unit": "%",
                 "desc": "Nasłonecznienie",
@@ -158,14 +158,14 @@
                
                 "scale": 3
             },
-            "zzzdeszcz":
+            "deszcz":
             {
                 "unit": "status",
                 "desc": "Deszcz",
 				
                 "scale": 1
             },
-            "temp":
+            "zzztemp":
             {
                 "unit": "°C",
                 "desc": "Temperatura",
@@ -200,7 +200,7 @@
                
                 "scale": 2
             },  
-			"wob":
+			"ewob":
             {
                 "unit": "status",
                 "desc": "Blokada podlewania",
@@ -227,7 +227,7 @@
                
                 "scale": 3
             },
-            "temp":
+            "zzztemp":
             {
                 "unit": "°C",
                 "desc": "Temperatura",
@@ -302,7 +302,7 @@
 				
                 "scale": 1
             },		    
-			"tpowietrze":
+			"powietrze":
             {
                 "unit": "% m3",
                 "desc": "Powietrze Prefix: CZYSTE=0 DYM=1 CO=2 Gaz=3",
@@ -316,14 +316,14 @@
 				
                 "scale": 2
             },
-            "zztemp":
+            "temp":
             {
                 "unit": "°C",
                 "desc": "Temp. Garaż",
 				
                 "scale": 2
             },
-            "tcis":
+            "cis":
             {
                 "unit": "hPa",
                 "desc": "Ciśnienie atm.",
@@ -337,7 +337,7 @@
 				
                 "scale": 2
             },
-            "ztemp2ds":
+            "temp2ds":
             {
                 "unit": "°C",
                 "desc": "Temp. wejścia solar.",

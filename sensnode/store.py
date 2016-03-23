@@ -101,9 +101,10 @@ class history():
         if self.dbconnected:
             values = self.get(nodename, timerange)
             # milliseconds for JavaScript
-            data = [[ast.literal_eval(v)['timestamp'] * 1000, ast.literal_eval(v)[sensor]] for v in values]
-            
+            data = ([[ast.literal_eval(v)['timestamp'] * 1000,ast.literal_eval(v)[sensor]] for (v) in values])
             return data
+            
+            
     def get_toJSON_last(self, nodename, sensor, timerange='1h'):
        data = []
        if self.dbconnected:

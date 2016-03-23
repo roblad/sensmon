@@ -54,7 +54,7 @@ def gaz(data):
         'name':name,
          #'humi': str((256 * d) + c),
         'batvol': c,
-        'temp': a,
+        'zzztemp': a,
         'pulse': d,
         'zuzycieoplata' : round((d * 1.97),2),
         'zd' : round(g1,2),

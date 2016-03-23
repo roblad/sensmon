@@ -34,8 +34,8 @@ def outdoor(data):
 
     template = ({
         'name':name,
-        'zbatvol': a,
-        'zzzsun': d,
+        'batvol': a,
+        'sun': d,
         'thumi': b,
         'temp': c,
         'tgroundhumi': f,

@@ -3,7 +3,7 @@
 __author__ = 'rl'
 import sys
 import cPickle as pickle
-import os, fnmatch
+import os
 import commands
 #parameters file and directory for cpickle file
 picklefile = 'datarelay.pic'

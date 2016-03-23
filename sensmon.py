@@ -300,22 +300,22 @@ def publish(jsondata):
     for k, v in jsondata.iteritems():
         mqtt.single("/sensmon/%s/%s" % (name, k), v, hostname=options.mqtt_broker, port=options.mqtt_port)
 
-#test result        
-result_previous = 0
-        
-"""
-init = 0
- 
-zmienna = init
- 
-def funkcja():
-        global zmienna
-        if zmienna == 0:
-                print("rowna")
-        elif zmienna > 0:
-                print("wieksza")
-        zmienna = 0       
-"""
+
+    
+
+
+
+
+
+def setValue(val):
+    global globalVal
+    valueChanged = val != val
+    if valueChanged:
+        print "pre zmienilo sie"
+    globalVal = val
+    if valueChanged:
+        print "post zmienilo sie"
+
 # funkcja główna
 def main():
     taskQ = multiprocessing.Queue()
@@ -360,7 +360,7 @@ def main():
     
     
     def checkResults():
-        
+
         if not resultQ.empty():
             # suwówka
             result = resultQ.get()
@@ -408,7 +408,7 @@ def main():
                     
                     if debug:
                         logger.debug("LevelDB: %s %s" % (key, decoded))
-                        print ("LevelDB: %s %s" % (key, decoded))
+                        #print ("LevelDB: %s %s" % (key, decoded))
                         
                         
 
@@ -436,18 +436,14 @@ def main():
                 furtka_state = int(checkrelays(0))
                 brama_state = int(checkrelays(1))
                 podlewanie_blokada = int(checkrelays(5))
-                p1_state = history.get_toJSON_last( 'piec', 'trela1','1h')[0]
-                p2_state = history.get_toJSON_last( 'piec', 'trela2','1h')[0]
-                p3_state = history.get_toJSON_last( 'piec', 'trela3','1h')[0]
+                p1 = history.get_toJSON_last( 'piec', 'trela1','1h')[0]
+                p2 = history.get_toJSON_last( 'piec', 'trela2','1h')[0]
+                p3 = history.get_toJSON_last( 'piec', 'trela3','1h')[0]
                 pickledir = os.path.abspath((os.path.dirname(__file__)) + '/cpickle')
                 picklefile = 'datarelay.pic'
-                p1 = p1_state
                 #sensnode.parse.test_values('piec','trela1')
-                p2 = p2_state
                 #sensnode.parse.test_values('piec','trela2')
-                p3 = p3_state
                 #sensnode.parse.test_values('piec','trela3') 
-                w1 = woda_last
                 #sensnode.parse.test_values('woda','pulse') 
                 store = (p1,
                          p2,
@@ -462,37 +458,36 @@ def main():
                 openpicklefilewrite = open(pickledir + '/' + picklefile, 'wb')
                 pickle.dump(store, openpicklefilewrite,-1 )
                 openpicklefilewrite.close()
-                """
-                try: 
-                    global zmienna
-                    zmienna = int(decoded['trela1'])
-                    if  (decoded['name']) == 'piec' and str(decoded) != 'None' : 
-                        funkcja()
+                
 
-                except KeyError:
-                    pass
-                """   
+
+
 
                 if debug:
                     print pickledir 
                     print "trela1 :" , p1
                     print "trela2 :" , p2
                     print "trela3 :" , p3
-                    print "Woda ostatnia wartość: " , w1
+                    print "Woda ostatnia wartość: " , woda_last
                     print "ostatnia wartosc dziennego zuzycia wody: %s litrów" % int((woda_last - woda_first) * 1000)
                     print "opłata dziennego zuzycia wody: %s zł" % (cena_woda_last - cena_woda_first)
                     print "ostatnia wartosc dziennego zuzycia gazu: %s m3" % (gaz_last - gaz_first)
                     print "opłata dziennego zuzycia gazu: %s zł" % (cena_gaz_last - cena_gaz_first)
-                    #print "test czy dziala gpio test %s" % checkrelays(0)
-                    test = int(checkrelays(0))
-                    if test != result_previous:
-                        if test != 0:
-                            print "CHANGED"
-                            print "CHANGED"
-                        global result_previous
-                        result_previous = int(checkrelays(0))
-                    else:
-                        print "stara wartosc checkrelays %s" % checkrelays(0)
+                    setValue(furtka_state)
+                    #test result        
+                    #result_previous = 0
+                    #test = int(checkrelays(0))
+                    #result_previous = test
+                    #global result_previous
+                    #if test != result_previous:
+                        
+                        #if test != 0:
+                            #global result_previous
+                            #print "CHANGED"
+                            #print "CHANGED"
+                            #result_previous = int(checkrelays(0))
+                    #else:
+                        #print "stara wartosc checkrelays %s" % checkrelays(0)
             except   ValueError:
                 pass
 

@@ -59,16 +59,16 @@ def emonitor(data):
    	#timestamp = int(1364553092)
     template = ({
         'name': name,
-        'siec': c,
-        'prad': round ((float(d + e + f)),2),
-        'mocb': h,
-        'mocc': g,
-        'cenazuzycie': round ((float(i * 0.845745)),5),
-        'dzienna': round ((i*1440*0.845745),2),
-        'zuzycie': i,
+        'siec': round (c,2),
+        'prad': round ((d + e + f),2),
+        'mocb': round (h,2),
+        'mocc': round (g,2),
+        'zcenazuzycie': round ((i * 0.845745),5),
+        'zdzienna': round ((i*1440*0.845745),2),
+        'zuzycie': round(i,5),
         'ftank': j,
-        'zzzbatvol': b,
-        'temp': a,
+        'batvol': round(b,3),
+        'zzztemp': round(a,2),
         'timestamp':timestamp
          })
 

@@ -1,18 +1,18 @@
 #!/usr/bin/python2
 # -*- coding: utf-8 -*-
-"""
+
 import os
 import subprocess
 import redis
 import simplejson as jsons
 #import sensmon
 #import sensnode.store
-import cPickle as pickle
+#import cPickle as pickle
 
 
 
   
-def test_values(nodename,value): #test database temporary if values came
+def redisvalues(nodename,value): #test database temporary if values came
 #print 'Decoding JSON has failed value set to:' ,woda_actual
 # i.e. node name is woda and tested value is pulse
 
@@ -25,7 +25,7 @@ def test_values(nodename,value): #test database temporary if values came
     except KeyError:  # includes simplejson.decoder.JSONDecodeError
         test = None
         return test
-
+"""
 def checkValue(val):
     global globalVal
     valueChanged = val != val

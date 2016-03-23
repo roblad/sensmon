@@ -61,18 +61,18 @@ def piec(data):
     template = ({
         'name': name,
         'batvol': c,   #f
-        'zztemp': f,     #c
+        'temp': f,     #c
         'temp1ds': h,  #Temp. boiler
-        'ztemp2ds': j,  #Temp. wejścia solar.
+        'temp2ds': j,  #Temp. wejścia solar.
         'temp3ds': float(k),  #Temp. powrot solar.
         'temp4ds': l,  #Temp. wyj. piec
         'temp5ds': i,  #Temp. pow. piec
         'trela1': p,
         'trela2': o,
         'trela3': n,
-        'tcis':(d + 8.00),
+        'cis':(d + 8.00),
         'twilg': b,
-        'tpowietrze': round((a / 10.0),2),
+        'powietrze': round((a / 10.0),2),
         'timestamp':timestamp
         })
 

@@ -63,7 +63,7 @@ class Decoder(object):
         except AttributeError:
             return
 		#self.nodescfg = OrderedDict(self.nodescfg)	
-        return jsontree.dumps(self.nodescfg)
+        return jsontree.dumps(self.nodescfg,sort_keys=True)
 
     def scale(self, data):
         """TODO: napisać to lepiej"""
