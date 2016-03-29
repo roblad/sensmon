@@ -1,0 +1,21 @@
+cat gaz_data_node_decoded.log |sed -e 's/.*\([gaz-][0-9]*\).*/\1/;s/[-]//g;p'
+(?![^a-z]?= ?![^a-z] )'(?=[0-9},])
+s/
+ cat gaz_data_node_decoded.log |sed  -n -e 's@^.*$@piec-@gs/.*gaz-//g;s/\}//g;N;/: gaz-/p;p'
+ s@^.*$@piec-&{@g
+'{s/: gaz-/p;s/.*gaz-//g;p;s/\}//g};p'
+sed  -n -e '{/: gaz-/p;s/.*gaz-//g;p;s/\}//g};p' | xargs sed s/\n/ /g
+
+'/.*piec/p;p;{s/.*gaz-//g;s/}//g};p'
+
+"s/\(\'.*\' .*\,\) \(\'.*\' .*\,\)  \(\'.*\' .*\,\) \(\'.*\' .*\,\) \(\'.*\' .*\,\)/ \5 \1 \2 \3 \4/"
+
+'temp': 22.2,
+
+sed -e 's/{.*': gaz-.*}/\2 \1/'
+
+
+cat gaz_data_node_decoded.log |sed -n -e "s/\('[a-z]*': .*,\) \('[a-z]*': .*,\) \('[a-z]*': '[a-z]*',\) \('[a-z]*': .*,\) \('[a-z]*': gaz-.*\)/ \5  {\1 \2 \3 \4 \5/;s/{ 'timestamp': //g;s/}  {/ {/g;s/'timestamp': gaz-/'timestamp': /g;s/^{'name': 'gaz',.*//g" 
+
+ cat gaz_data_node_decoded2.log |sed -e "s/\('[a-z]*': '[a-z]*',\) \('[a-z]*': .*,\) \('[a-z]*': gaz-.*\) \('[a-z]*': '.*',\) \('[a-z]*': .*,\) \('[a-z]*': .*,\)/ \3  {\1 \2 \3 \4 \5/;s/{ 'timestamp': //g;s/}  {/ {/g;s/'timestamp': gaz-/'timestamp': /g;s/^{'name': 'gaz',.*//g" 
+
