@@ -12,6 +12,7 @@ import simplejson as json
 import common
 import logging
 import config
+from itertools import islice
 
 """
 Redis DB szablon:
@@ -75,33 +76,76 @@ class history():
         ranges = {'1h' : 3600,
                 '8h' : 28000,
                 'day' : 86400,
-                '2days': 172800,
+                '2d': 172800,
+                '3d': 259200,
+                '4d': 345600,
+                '5d': 432000,
                 'week' : 604800,
-                'month' : 2592000}
+                '2w' : (2 * 604800),
+                '3w' : (3 * 604800),
+                'month' : 2592000,
+                '2m' : (5184000),
+                '3m' : (7776000),
+                '4m' : (7776000 + 2592000),
+                '5m' : (7776000 + 2592000 + 2592000),
+                '6m' : (15552000),
+                '7m' : (15552000 + 2592000),
+                '8m' : (15552000 + 2592000 + 2592000),
+                '9m' : (15552000 + 2592000 + 2592000 + 2592000),
+                'year' : (31104000)}
 
         if self.dbconnected:
             data = []
             ts = int(time.time())
             start_key = '%s-%s' % (nodename, ts-ranges[timerange])
             stop_key = '%s-%s' % (nodename, ts)
-
+            
             iterator = self.lvldb.iterator(start=(start_key).encode('ascii'),
                                             stop=(stop_key).encode('ascii'),
                                             include_start=True,
                                             include_stop=True)
+                                            
             data = [value for key, value in iterator]
-            return data
-
+            
+            iterator.close()
+            if (ts - ranges[timerange]) > (ts - 604900):
+                #print 'week'
+                return data
+            elif(ts - ranges[timerange]) < (ts - 604900) and (ts - ranges[timerange]) > (ts - 2593000):
+                data_filtered = [value for value in (islice(data,0,len(data), 10))]
+                #print 'month - 3month'
+                return data_filtered
+            elif (ts - ranges[timerange]) < (ts - 2593000):
+                #print 'above 3month'
+                data_filtered = [value for value in (islice(data,0,len(data), 100))]
+                return data_filtered
     def put(self, key, value):
         if self.dbconnected:
             self.lvldb.put(key, value)
-
+            
+    
+    def pritndb(self,node):
+        
+        if self.dbconnected:
+            imput = node
+            file = open("/mnt/data/"+imput+"_data_node.log", "w")
+            for key, value in self.lvldb.iterator(prefix=imput):
+                file.write (value)
+                file.write("\n")
+            file.close()    
+        
+        return "all database dumped to: /mnt/data/....data_node.log node: %s" % imput
+        
+    def closeconnectdb(self):
+        return self.lvldb.close()
+        
     def get_toJSON(self, nodename, sensor, timerange='week'):
         data = []
         if self.dbconnected:
             values = self.get(nodename, timerange)
             # milliseconds for JavaScript
             data = ([[ast.literal_eval(v)['timestamp'] * 1000,ast.literal_eval(v)[sensor]] for (v) in values])
+            
             return data
             
             
@@ -112,4 +156,5 @@ class history():
            # milliseconds for JavaScript
            #data = [[ast.literal_eval(v)['timestamp'] *1000, ast.literal_eval(v)[sensor]] for v in values]
            data = [ ast.literal_eval(v)[sensor] for v in values]
+           
            return data[-1], data[0]

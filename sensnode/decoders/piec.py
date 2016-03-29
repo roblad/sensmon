@@ -5,9 +5,7 @@ import datetime
 import inspect
 import simplejson as json
 import sys
-sys.path.append('/home/pi/sensmon/sensnode/')
-import store 
-#woda_last = store.history.get_toJSON_last(history('woda'),history('pulse'),history('day'))
+
 
 def piec(data):
     """Pomiar:
@@ -67,9 +65,9 @@ def piec(data):
         'temp3ds': float(k),  #Temp. powrot solar.
         'temp4ds': l,  #Temp. wyj. piec
         'temp5ds': i,  #Temp. pow. piec
-        'trela1': p,
-        'trela2': o,
-        'trela3': n,
+        'trela1': int(p),
+        'trela2': int(o),
+        'trela3': int(n),
         'cis':(d + 8.00),
         'twilg': b,
         'powietrze': round((a / 10.0),2),

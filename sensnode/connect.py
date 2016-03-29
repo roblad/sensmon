@@ -13,7 +13,7 @@ from config import config
 class Connect(multiprocessing.Process):
 
     """Read data from wireless nodes"""
-    def __init__(self, taskQ, resultQ, debug=False):
+    def __init__(self, taskQ, resultQ, debug=True):
         self._logger = logging.getLogger(__name__)
         multiprocessing.Process.__init__(self)
         self.taskQ = taskQ

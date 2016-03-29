@@ -7,8 +7,6 @@ import simplejson as json
 import sys
 import os
 import cPickle as pickle
-#sys.path.insert(0,'..')
-#from getrelays import checkrelays
 
 def woda(data):
     """Pomiar:
@@ -24,14 +22,19 @@ def woda(data):
     >> weathernode(raw, "weathernode")
     '{"name": "weathernode", "temp": "242", "lobat": "0", "humi": "326", "timestamp": 1364553092, "light": "0", "press": "9929", "batvol": "4367"}'
     """
-#----------------------------------tu  pisac swoje razem z importem na poczatku ---------------------  
- #store = p1,p2,p3,woda_last,(woda_last - woda_first),(cena_woda_last - cena_woda_first),(gaz_last - gaz_first), (cena_gaz_last - cena_gaz_first)
+#----------------------------------added for pickle and podlewaczka relays---------------------  
     pickledir = os.path.abspath((os.path.dirname(__file__)) + '/../../cpickle')
     picklefile = 'datarelay.pic'
     openpicklefileread = open(pickledir + '/' + picklefile, 'rb')
-    #print pickledir
     get_data = pickle.load(openpicklefileread)
     openpicklefileread.close()
+    picklefilepodlewanie = 'datapodlewanie.pic'
+    openpicklefilepodlewanie = open(pickledir + '/' + picklefilepodlewanie, 'rb')
+    get_datapdl = pickle.load(openpicklefilepodlewanie)
+    openpicklefilepodlewanie.close()
+    p1 = get_data[0]
+    p2 = get_data[1]
+    p3 = get_data[2]
     w1 = get_data[4]
     w2 = get_data[5]
     w3 = get_data[10]
@@ -40,6 +43,11 @@ def woda(data):
     c = float(data[4]) 
     d = float(data[5])#bateria
     e = float(data[6]) #pomiar woda
+    if p1 == 1 or p2 == 1 or p3 == 1:
+        w4 = round((e - get_datapdl),2)
+    else:
+        w4 = 0
+    #else:
     #f = float(sensmon.woda_last) #pomiar woda
     #f = int(data[7])
     #g = int(data[8])
@@ -59,15 +67,23 @@ def woda(data):
         'zzztemp': b,
         'pulse': e,
         'wop': round ((e * 4.53),2),
-        'wor': int(w1*100),
+        'wor': int((float (w1))*100),
         'wos': round(w2,2),
         'ewob': w3,
+        'wpod': round(w4,2),
+        'wpodz': round((w4 * 4.53),4),
         'timestamp':timestamp
 
         
          })
-
-    #list = pickle.load(sys.stdin)
-    #print float(item)
-    
+        
+    """
+    print "p1", p1
+    print "p1", p2
+    print "p1", p3
+    print "w4", w4
+    print "w4 przetw" ,(round(((e - float(get_datapdl))),4))
+    print "wpod" , (round(w4,2))
+    print "wpodz", (round(w4 * 4.53),4)
+    """
     return  dict((k,v) for (k,v) in template.iteritems())

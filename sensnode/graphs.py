@@ -44,9 +44,9 @@ default_graph_config = {
 
 class Graphs(object):
     """Generate graph image for selected nodes"""
-    def __init__(self, history, debug=False):
+    def __init__(self, history, debug=True):
         self._logger = logging.getLogger(__name__)
-        self.debug = False
+        self.debug = True
         self.history = history
         self.nodescfg = jsontree.clone(config().getConfig('nodes'))
 

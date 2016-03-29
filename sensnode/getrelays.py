@@ -13,7 +13,8 @@ relayslist = (0,1,2,3,4,5)
 #gpio commands and rain status
 cmd_gpio1 = '/usr/bin/gpio -g read 2'
 cmd_gpio2 = '/usr/bin/gpio -g read 3'
-cmd_rain_status = '[[ ! -f /run/lock/rain.flg ]];echo $?'
+cmd_rain_status = os.path.isfile('/run/lock/rain.flg') 
+#'[ ! -f /run/lock/rain.flg ];echo $?'
 #check if datarelay.pic file exists and get_data is avaliable and proper amount of arguments are given
 total = len(sys.argv)
 cmdargs = str(sys.argv)
@@ -75,7 +76,10 @@ def checkrelays(arg=argpass):
             except NameError:
                 pass
         elif arg == 5:
-            return commands.getoutput(cmd_rain_status)
+            if cmd_rain_status:
+                return 1
+            else:
+                return 0
         elif arg not in relayslist:
             pass
     except IndexError:

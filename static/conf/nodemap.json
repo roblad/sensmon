@@ -137,6 +137,41 @@
                
                 "scale": 1
             },
+			"zpreciphr":
+            {
+                "unit": "mm/m2",
+                "desc": "Opady w najbliższej godzinie",
+               
+                "scale": 2
+            },			
+			"zpreciptoday":
+            {
+                "unit": "mm/m2",
+                "desc": "Opady sumaryczne dzienne",
+               
+                "scale": 2
+            },			
+			"solarradiation":
+            {
+                "unit": "W/m2",
+                "desc": "Moc nasłonecznienia",
+               
+                "scale": 0
+            },			
+			"wind":
+            {
+                "unit": "km/h",
+                "desc": "Prędkość wiatru",
+               
+                "scale": 1
+            },			
+			"winddegrees":
+            {
+                "unit": "°",
+                "desc": "Wiatr kierunek skąd 0=PN",
+               
+                "scale": 0
+            },			
             "timestamp":
             {
                 "desc": "Aktualizacja"
@@ -189,14 +224,14 @@
 			"wor":
             {
                 "unit": "wiader",
-                "desc": "Dzienne zużycie wody",
+                "desc": "Dzienna zużycie wody",
                
                 "scale": 2
             },
 			"wos":
             {
                 "unit": "zł",
-                "desc": "Dzienne opłata wody",
+                "desc": "Dzienna opłata wody",
                
                 "scale": 2
             },  
@@ -206,7 +241,19 @@
                 "desc": "Blokada podlewania",
                
                 "scale": 0
-            },            			
+            },
+			"wpod":
+            {
+                "unit": "m3",
+                "desc": "Podlewanie zużycie",
+                "scale": 4
+            },
+			"wpodz":
+            {
+                "unit": "zł",
+                "desc": "Opłata za podlewanie",
+                "scale": 4
+            },
             "timestamp":
             {
                 "desc": "Aktualizacja"

@@ -22,12 +22,10 @@ def gaz(data):
     >> weathernode(raw, "weathernode")
     '{"name": "weathernode", "temp": "242", "lobat": "0", "humi": "326", "timestamp": 1364553092, "light": "0", "press": "9929", "batvol": "4367"}'
         """
-#----------------------------------tu  pisac swoje razem z importem na poczatku ---------------------  
-    #store = p1,p2,p3,woda_last,(woda_last - woda_first),(cena_woda_last - cena_woda_first),(gaz_last - gaz_first), (cena_gaz_last - cena_gaz_first)
+#----------------------------------wartosci pickle gaz i cena ---------------------  
     pickledir = os.path.abspath((os.path.dirname(__file__)) + '/../../cpickle')
     picklefile = 'datarelay.pic'
     openpicklefileread = open(pickledir + '/' + picklefile, 'rb')
-    #print pickledir
     get_data = pickle.load(openpicklefileread)
     openpicklefileread.close()
     g1 = get_data[6]

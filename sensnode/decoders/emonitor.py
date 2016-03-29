@@ -4,9 +4,8 @@ import time
 import datetime
 import inspect
 import simplejson as json
-import sys
-import os
-import cPickle as pickle
+
+
 
 def emonitor(data):
     """Pomiar:

@@ -35,7 +35,8 @@ import sensnode.common
 import sensnode.logs as logs
 from sensnode.config import config
 from sensnode.weather import getWeather
-#from sensnode.weather import getAQI
+#from sensnode.weather import getAQI - removed not neded
+#added for additional functions
 import sys
 import cPickle as pickle
 import redis
@@ -228,7 +229,7 @@ class GetHistoryData(BaseHandler):
         except KeyError, e:
             self.set_status(404)
             self.finish("%s nie znaleziono" % e)
-
+        
 
 class GetInitData(BaseHandler):
 
@@ -373,24 +374,25 @@ def main():
             except TypeError:
                 return
             update = decoder.update(decoded)
-            """
             
+#----------------------------------tu  pisac swoje razem z importem na poczatku ---------------------             
             #removed ater change of usbrelay check throug python script 22.03.16
-            dir_current = os.getcwd()
+            #dir_current = os.getcwd()
             ######if not node_name.empty():
-            print "Current directory for store data file result is: /mnt/data/ "
-            if str(decoded) != 'None':
-                file = open("/mnt/data/"+(decoded['name'])+"_data_node.log", "a+")
-                file.write(str(result))
-                file.write("\n")
-                file.close()
-                file2 = open("/mnt/data/"+(decoded['name'])+"_data_node_decoded.log", "a+")
-                file2.write (str(decoded))
-                file2.write("\n")
-                file2.close()
-            """
-#----------------------------------tu  pisac swoje razem z importem na poczatku ---------------------  
-
+            #print "Current directory for store data file result is: /mnt/data/ "
+            #used for dump data from leveldb
+            #if str(decoded) != 'None' and (decoded['name']) == 'woda':
+                #filer = "/mnt/data/"+(decoded['name']+"_data_node.log"
+                #with open('filer', 'r+') as f:
+                #file = open("/mnt/data/"+(decoded['name'])+"_data_node.log", "w")
+                #print history.pritndb((decoded['name']))
+                #file.write(dane)
+                #file.write("\n")
+                #file.close()
+                #file2 = open("/mnt/data/"+(decoded['name'])+"_data_node_decoded.log", "a+")
+                #file2.write (str(decoded))
+                #file2.write("\n")
+                #file2.close()
 #----------------------------------tu  pisac swoje razem z importem na poczatku ---------------------                  
             if debug:
                 print ("RAW: %s" % (result))
@@ -422,8 +424,7 @@ def main():
             if options.mqtt_enable:
                 publish(decoded)
 
-#----------------------------------tu  pisac swoje start ---------------------  
-
+#----------------------------------tu  pisac swoje dodatkowe funkcjonalnosci start ---------------------  
             try:
                 woda_last = round((history.get_toJSON_last( 'woda', 'pulse','day')[0]),2)
                 woda_first = round((history.get_toJSON_last( 'woda', 'pulse','day')[-1]),2)
@@ -448,7 +449,8 @@ def main():
                 store = (p1,
                          p2,
                          p3,
-                         woda_last,round((woda_last - woda_first),2),
+                         woda_last,
+                         round((woda_last - woda_first),2),
                          round((cena_woda_last - cena_woda_first),2),
                          round((gaz_last - gaz_first),2),
                          round((cena_gaz_last - cena_gaz_first),2),
@@ -458,10 +460,13 @@ def main():
                 openpicklefilewrite = open(pickledir + '/' + picklefile, 'wb')
                 pickle.dump(store, openpicklefilewrite,-1 )
                 openpicklefilewrite.close()
-                
-
-
-
+                if os.path.isfile('/tmp/relaystart.flg'):
+                    picklefilepodlewanie = 'datapodlewanie.pic'
+                    openpicklefilepodlewanie = open(pickledir + '/' + picklefilepodlewanie, 'wb')
+                    woda_last_podl=woda_last
+                    pickle.dump(woda_last, openpicklefilepodlewanie,-1 )
+                    openpicklefilepodlewanie.close()
+                    os.remove('/tmp/relaystart.flg')
 
                 if debug:
                     print pickledir 
@@ -473,24 +478,19 @@ def main():
                     print "opłata dziennego zuzycia wody: %s zł" % (cena_woda_last - cena_woda_first)
                     print "ostatnia wartosc dziennego zuzycia gazu: %s m3" % (gaz_last - gaz_first)
                     print "opłata dziennego zuzycia gazu: %s zł" % (cena_gaz_last - cena_gaz_first)
-                    setValue(furtka_state)
-                    #test result        
-                    #result_previous = 0
-                    #test = int(checkrelays(0))
-                    #result_previous = test
-                    #global result_previous
-                    #if test != result_previous:
-                        
-                        #if test != 0:
-                            #global result_previous
-                            #print "CHANGED"
-                            #print "CHANGED"
-                            #result_previous = int(checkrelays(0))
-                    #else:
-                        #print "stara wartosc checkrelays %s" % checkrelays(0)
+                    try:
+                        picklefilepodlewanie = 'datapodlewanie.pic'
+                        openpicklefilepodlewanie = open(pickledir + '/' + picklefilepodlewanie, 'rb')
+                        get_datapdl = pickle.load(openpicklefilepodlewanie)
+                        openpicklefilepodlewanie.close()
+                        print "wartosc wody pobrana do obliczania podlewania: %s m3" % get_datapdl
+                    except UnboundLocalError:
+                        print "wartosc wody pobrana do obliczania podlewania: %s m3" % 0
             except   ValueError:
                 pass
-
+            except IndexError:
+                pass
+                
 #-------------------tu  pisac swoje koniec --------------------- 
     
 

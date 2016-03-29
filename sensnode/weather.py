@@ -3,8 +3,13 @@
 
 import re
 import requests
-from bs4 import BeautifulSoup
+#from bs4 import BeautifulSoup
 import json
+#wunderground.com
+
+api = 'f86d1e8be4de0136'
+STIMAZOWIE117='http://api.wunderground.com/api/'+ api +'/conditions/q/pws:IMAZOWIE117.json'
+STIWARSZAW408='http://api.wunderground.com/api/'+ api +'/conditions/q/pws:IWARSZAW408.json'
 
 '''def getAQI():
     city = u'Suwałki-Miejska, Polska'
@@ -48,4 +53,12 @@ def getWeather(city, units='metric', lang='pl', appid='e03a133fd9094c28922ef5fc1
     
     jsonWeather = requests.get('http://api.openweathermap.org/data/2.5/forecast/daily?q=' + city + '&units=' + units + '&lang=' + lang + '&appid=' + appid + '&cnt=6&mode=json')
     return jsonWeather.json()
-    #jsonWeather_day = requests.get('http://api.openweathermap.org/data/2.5/weather?q=' + city + '&units=' + units + '&lang=' + lang + '&appid=' + appid + '&cnt=6&mode=json')
+    
+
+def getWeatherCurrent(station):
+    try:
+        jsonWeather = requests.get(station)
+        return jsonWeather.json()['current_observation']
+    except KeyError:
+        pass
+

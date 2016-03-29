@@ -116,16 +116,6 @@ def usbrelay():
     out_usbrelay = command.communicate()[0]
     return out_usbrelay
     
-def wheather_control():
-    command = subprocess.Popen(['/scripts/acuweather.sh'], stdout=subprocess.PIPE)
-    #,'|','awk', '-F:', '\'/:o/ {print "ports.push([\""$1"\",\""$2"\"]);" ;}\''
-    #grep_command = subprocess.Popen(
-    #    ['|','head', '-n', '5'], stdout=subprocess.PIPE)
-    out_wheather = command.communicate()[0]
-    out_wheather = out_wheather.split(" ")
-    return out_wheather
-#
-
 
 def getDigest(password):
     return hashlib.sha256(password).hexdigest()
