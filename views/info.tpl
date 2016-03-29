@@ -29,12 +29,6 @@
 		</fieldset>
 		</div>
 		
-		<div>
-		
-
-<p><li><b>Pogoda control:</b> <br/><br/> {{ wheather_status}} <br/><br/></li></p>
-
-        </div>
 		
 		
     </ul>

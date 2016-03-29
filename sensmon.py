@@ -209,8 +209,7 @@ class InfoHandler(BaseHandler):
                     process=sensnode.common.process(),
                     disksize=sensnode.common.disksize(),
                     machine=sensnode.common.machine_detect()[0],
-                    usbrelay_status=sensnode.common.usbrelay(),
-                    wheather_status=sensnode.common.wheather_control()
+                    usbrelay_status=sensnode.common.usbrelay()
                     )
 
 
