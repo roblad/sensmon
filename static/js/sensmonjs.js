@@ -283,12 +283,13 @@ sensmon.controller('graphsCtrl', function ($route, $routeParams, $scope, $http, 
           },
           rangeSelector: {
             enabled: true,
+			
             buttons: [{
               type: 'hour',
               count: 1,
               text: '1h'
              },{
-              type: '1h',
+              type: 'hour',
               count: 8,
               text: '8h'
              },{
@@ -327,30 +328,41 @@ sensmon.controller('graphsCtrl', function ($route, $routeParams, $scope, $http, 
           navigator: {
             enabled: true
           }
+		  
         },
+		loading: false,
+		credits:{"enabled":false},
+		size:{"height":"500","width":"1350"},
         series: [],
         title: {
-          text: params.title
+          text: params.title,
+		  
+		  
         },
+		
         yAxis: {
           title: {
             text: params.sensor,
-            opposite: false
+			opposite: false
           }
         },
         useHighStocks: true
+		
       }
 
     // dodajemy dane do wykresu
     // FIXME: ustawienia serii danych odzielnie
     $scope.chartConfig.series.push({
-          type: 'area',
-          data: chartData,
-          name: "Odczyt",
-          tooltip: {
-              valueDecimals: 3
-            }
-      });
+          //type: 'area',
+		type: 'spline',
+		lineWidth: 2,
+		color: "#f1f",
+		marginRight: 130,
+		marginBottom: 25,
+		data: chartData, name: "Odczyt", 
+		tooltip: {valueDecimals: 2 },
+		
+		});
   });
 };
 });
