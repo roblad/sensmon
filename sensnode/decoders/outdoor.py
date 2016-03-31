@@ -18,22 +18,27 @@ def outdoor(data):
     STATION2 = sensnode.weather.getWeatherCurrent(STIWARSZAW408)
          
     try:
-        #mm / h 
-        precip_1hr = round((((float(STATION1['precip_1hr_metric']))+(float(STATION2['precip_1hr_metric'])))/2),2)
-        # mm day
-        precip_today = round((((float(STATION1['precip_today_metric']))+(float(STATION2['precip_today_metric'])))/2),2)
         #wind speed 
         wind = float(STATION1['wind_kph'])
         #W/m2 naslonecznienie
         solarradiation = int(STATION1['solarradiation'])
         #wind_degrees
         wind_degrees = int(STATION1['wind_degrees'])
+        #mm / h 
+        precip_1hr = round((((float(STATION1['precip_1hr_metric']))+(float(STATION2['precip_1hr_metric'])))/2),2)
+        # mm day
+        precip_today = round((((float(STATION1['precip_today_metric']))+(float(STATION2['precip_today_metric'])))/2),2)
+        dewpoint = round((((float(STATION1['dewpoint_c']))+(float(STATION2['dewpoint_c'])))/2),2)
     
     except TypeError:
         pass
     except IndentationError:
         pass
-
+    except ValueError:
+        precip_today = 0
+        precip_1hr = 0
+        
+    
     '''Pomiar:
     - swiatła,
     - wlgotności
@@ -58,6 +63,7 @@ def outdoor(data):
     i = wind
     j = solarradiation
     k = wind_degrees
+    l = dewpoint
 
 
 
@@ -75,10 +81,13 @@ def outdoor(data):
         'tempground': h,
         'zpreciphr': e,
         'zpreciptoday': g,
+        'zdewpoint': l,
         'solarradiation': j,
         'wind': i,
         'winddegrees': k,
         'timestamp':timestamp
          })
 
+
     return  dict((k,v) for (k,v) in template.iteritems())
+    

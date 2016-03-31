@@ -171,7 +171,13 @@
                 "desc": "Wiatr kierunek skąd 0=PN",
                
                 "scale": 0
-            },			
+            },	
+			"zdewpoint":
+            {
+                "unit": "°C",
+                "desc": "Punkt rosy",
+                "scale": 2
+            },
             "timestamp":
             {
                 "desc": "Aktualizacja"

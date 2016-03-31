@@ -243,6 +243,7 @@ sensmon.controller('graphsCtrl', function ($route, $routeParams, $scope, $http, 
     // stwórz adres url
     // /history/<nodename>/<sensor>/<timerange>
     url = '/history/' + nodename + '/' + sensor + '/' + timerange;
+	url2 = '/history/gaz/batvol/week';
     // pobieram ustawienia nodów aby uzyskać dodatkowe informacje na ich temat
     var getPlotInfo = $http.get('/static/conf/nodemap.json').success(function(data) {
       console.log('Pobrano nodemap.json');
@@ -333,7 +334,9 @@ sensmon.controller('graphsCtrl', function ($route, $routeParams, $scope, $http, 
 		loading: false,
 		credits:{"enabled":false},
 		size:{"height":"500","width":"1350"},
-        series: [],
+		  series: [{
+			  data:[]
+		  }],
         title: {
           text: params.title,
 		  
@@ -343,9 +346,21 @@ sensmon.controller('graphsCtrl', function ($route, $routeParams, $scope, $http, 
         yAxis: {
           title: {
             text: params.sensor,
-			opposite: false
-          }
+			
+          },
+		  opposite: false,
+		  //alternateGridColor: '#FDFFD5',
+		  gridLineColor: '#197F07',
+            minorTickInterval: 'auto'
         },
+		  xAxis: {
+			  gridLineWidth: 1,
+			  gridZIndex: 4,
+			  //alternateGridColor: '#FDFFD5',
+			  gridLineColor: '#197F07',
+
+		  },
+		  
         useHighStocks: true
 		
       }
@@ -356,11 +371,11 @@ sensmon.controller('graphsCtrl', function ($route, $routeParams, $scope, $http, 
           //type: 'area',
 		type: 'spline',
 		lineWidth: 2,
-		color: "#f1f",
+		//color: "#f1f",
 		marginRight: 130,
 		marginBottom: 25,
 		data: chartData, name: "Odczyt", 
-		tooltip: {valueDecimals: 2 },
+		tooltip: {valueDecimals: 1 },
 		
 		});
   });

@@ -41,7 +41,7 @@
         <div class="navbar navbar-inverse navbar-fixed-top navbar-left" role="navigation">
 			<div class="container-fluid">
 				<div class="navbar-header">
-					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse" >
 						<span class="sr-only">Toggle navigation</span>
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
@@ -89,24 +89,34 @@
 						{% end %}
 					</ul>
 				</div>
+				
 			</div>
         </div>
 
         <div id="content">
 			<div class="container-fluid">
-  <h2><div class="container">
-   <div class="row">  
-    <div class="left"><button type="button" class="btn btn-success btn-sm" data-toggle="collapse" data-target="#zegar">Data Godzina</button> </div>
+				
+	<div class="btn-group" role="group" aria-label="...">
+	<h5><div class="container">
+  
+    <button type="button" class="btn btn-success btn-sm" data-toggle="collapse" data-target="#zegar" >Data Godzina</button> 
      <div id="zegar"class="collapse">
        <div class="intro" ng-controller="introCtrl"><div class="date">Dziś jest {{! today(clock) }} </div> <div class="clock">{{! clock | date:'HH:mm:ss'}}</div></div>
      </div>
-   </div></h2>
+   </div></h5>
+   </div>
+  
+				
+   
 				{% block content %}{% end %}
+				
 			</div>
         </div>
+		
 	</div>
 
     {% block scripts %}
+
     {% end %}
     <!--
      <div class="footer">
