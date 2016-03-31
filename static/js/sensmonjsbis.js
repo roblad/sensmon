@@ -12,7 +12,7 @@ https://github.com/ankane/chartkick.js
 */
 // RL scripts
 
-sensmon.controller('addCtrl', function ($scope) {
+sensmon.controller('AddCtrl', function ($scope) {
     var ws = new WebSocket("ws://"+document.location.hostname+":8081/websocket");
     msg = []
     ws.onmessage = function (evt) {
