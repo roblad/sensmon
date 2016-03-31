@@ -64,7 +64,7 @@ define("leveldb_path",default=config().get("app", ['leveldb', 'path']),
 define("leveldb_forgot",default=config().get("app", ['leveldb', 'forgot']),
         help="Forgot nodes data")
 # MQTT
-define("mqtt_enable",default=config().get("app", ['mqtt', 'enable']),
+define("mqtt_enable",default=config().get("app", ['mqtt', 'disable']),
 		help="MQTT enabled")
 define("mqtt_broker",default=config().get("app", ['mqtt', 'broker']),
 		help="MQTT broker IP")
@@ -185,6 +185,11 @@ class LogsHandler(BaseHandler):
     def get(self):
         self.render("logs.tpl")
 
+# zakładka Logi
+class AddHandler(BaseHandler):
+
+    def get(self):
+        self.render("add.tpl")
 
 # zakłatka Intro
 class IntroHandler(BaseHandler):
@@ -334,6 +339,7 @@ def main():
     application = tornado.web.Application([
         (r"/admin", AdminHandler),
         #(r"/control", ControlHandler),
+        (r"/add", AddHandler),
         (r"/", DashHandler),
         (r"/graphs/(?P<node>[^\/]+)/?(?P<sensor>[^\/]+)?/?(?P<timerange>[^\/]+)?", GraphsHandler),
         (r"/info", InfoHandler),

@@ -30,6 +30,7 @@
     <script src="http://momentjs.com/downloads/moment-with-locales.js" type="text/javascript"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-moment/0.10.3/angular-moment.js" type="text/javascript"></script>
     <script src="/static/js/require.js" type="text/javascript"></script>
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script src="/static/js/sensmonjs.js" type="text/javascript"></script>
 	<script src="/static/js/sensmonjsbis.js" type="text/javascript"></script>
 </head>
@@ -41,7 +42,7 @@
         <div class="navbar navbar-inverse navbar-fixed-top navbar-left" role="navigation">
 			<div class="container-fluid">
 				<div class="navbar-header">
-					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse" >
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
 						<span class="sr-only">Toggle navigation</span>
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
@@ -55,6 +56,7 @@
 					
 						<li target="_self" href="" class="navbar-brand" <a onclick="window.location='http://' + window.location.hostname + ':80'">RPi automation</a></li>
 						<li class="active"><a target="_self" href="/">Czujniki</a></li>
+						<li> <a target="_self" href="/add">Wskaźniki</a></li>
 						<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Pogoda<span class="caret"></span></a>
                           <ul class="dropdown-menu">
                             <li><a target="_self" href="/intro">Pogoda</a></li>
@@ -89,34 +91,24 @@
 						{% end %}
 					</ul>
 				</div>
-				
 			</div>
         </div>
 
         <div id="content">
 			<div class="container-fluid">
-				
-	<div class="btn-group" role="group" aria-label="...">
-	<h5><div class="container">
-  
-    <button type="button" class="btn btn-success btn-sm" data-toggle="collapse" data-target="#zegar" >Data Godzina</button> 
+  <h2><div class="container">
+   <div class="row">  
+    <div class="left"><button type="button" class="btn btn-success btn-sm" data-toggle="collapse" data-target="#zegar">Data Godzina</button> </div>
      <div id="zegar"class="collapse">
        <div class="intro" ng-controller="introCtrl"><div class="date">Dziś jest {{! today(clock) }} </div> <div class="clock">{{! clock | date:'HH:mm:ss'}}</div></div>
      </div>
-   </div></h5>
-   </div>
-  
-				
-   
+   </div></h2>
 				{% block content %}{% end %}
-				
 			</div>
         </div>
-		
 	</div>
 
     {% block scripts %}
-
     {% end %}
     <!--
      <div class="footer">

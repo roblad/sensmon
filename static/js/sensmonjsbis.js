@@ -11,28 +11,60 @@ http://andru.co/building-a-simple-single-page-application-using-angularjs
 https://github.com/ankane/chartkick.js
 */
 // RL scripts
-var host = $location.host();
-function adblockUpdate()
-{
-	var Commands = [];
-	
-	populateLists(Commands);
-	
-	Commands.push("/scripts/usbrelay.sh status | awk -F: '/:o/ {print "([\""$1"\",\""$2"\"]);" ;}'");
-	
+
+sensmon.controller('addCtrl', function ($scope) {
+    var ws = new WebSocket("ws://"+document.location.hostname+":8081/websocket");
+    msg = []
+    ws.onmessage = function (evt) {
+        jsonObj = JSON.parse(evt.data);
+        if (_.has(jsonObj, 'name')) {
+            msg.push(jsonObj)
+        }
+
+        $scope.$apply(function() {
+            $scope.msg = msg
+        });
+    }
+});
 
 
-	runAjax("POST", "/scripts/usbrelay.sh status | awk -F: '/:o/ {print "([\""$1"\",\""$2"\"]);" ;}'");
+ google.charts.load('current', {'packages':['gauge']});
+ google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+
+        var data = google.visualization.arrayToDataTable([
+          ['Label', 'Value'],
+          ['Bateria %', 100],
+          ['Moc %', 55],
+          ['Zużycie Gaz %', 68]
+        ]);
+
+        var options = {
+          width: 1000, height: 600,
+          redFrom: 90, redTo: 100,
+          yellowFrom:75, yellowTo: 90,
+          minorTicks: 5
+        };
+
+        var chart = new google.visualization.Gauge(document.getElementById('chart_div'));
+
+        chart.draw(data, options);
+
+        setInterval(function() {
+          data.setValue(0, 1, 40 + Math.round(60 * Math.random()));
+          chart.draw(data, options);
+        }, 13000);
+        setInterval(function() {
+          data.setValue(1, 1, 40 + Math.round(60 * Math.random()));
+          chart.draw(data, options);
+        }, 5000);
+        setInterval(function() {
+          data.setValue(2, 1, 60 + Math.round(20 * Math.random()));
+          chart.draw(data, options);
+        }, 26000);
 };
+ 
 
-function myFunction() {
-    document.getElementById("demo").innerHTML = "Paragraph changed."
-	
-	var =dupa; 
-	dupa.adblockUpdate();
-	return dupa;
-	
-};
 
 
 
