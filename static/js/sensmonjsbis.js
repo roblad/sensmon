@@ -12,45 +12,94 @@ https://github.com/ankane/chartkick.js
 */
 // RL scripts
 
-sensmon.controller('AddCtrl', function ($scope) {
+sensmon.controller('AddCtrl', function ($scope, $http) {
     var ws = new WebSocket("ws://"+document.location.hostname+":8081/websocket");
-    msg = []
-    ws.onmessage = function (evt) {
-        jsonObj = JSON.parse(evt.data);
-        if (_.has(jsonObj, 'name')) {
-            msg.push(jsonObj)
+
+    function parseJSON(jsonObj) {
+		jsonParsed = JSON.parse(jsonObj);
+        if (_.isEmpty(jsonParsed)) {
+            return // pustym "obiektom" dziekujemy :)
         }
 
-        $scope.$apply(function() {
-            $scope.msg = msg
+        $scope.safeApply(function() {
+            $scope.array = jsonParsed;
         });
     }
+
+
+    $scope.safeApply = function(fn) {
+        var phase = this.$root.$$phase;
+        if(phase == '$apply' || phase == '$digest') {
+            if(fn && (typeof(fn) === 'function')) {
+                fn();
+            }
+        } else {
+            this.$apply(fn);
+        }
+    };
+
+    ws.onmessage = function (evt) {
+        jsonObj = evt.data;
+        parseJSON(jsonObj);
+        console.log('Otrzymano nowe dane')
+    }
+
+    ws.onopen = function() {
+        console.log('Sesja websocket rozpoczęta')
+    }
+
+    ws.onclose = function() {
+        console.log('Narazie :)')
+    }
+
+    // hover
+    $scope.hoverIn = function(){
+        this.hoverEdit = true;
+    };
+
+    $scope.hoverOut = function(){
+        this.hoverEdit = false;
+    };
+
+	$http.get('/initv').success(function(data) {
+		
+        parseJSON(data);
+        console.log('Pobrano ostatnie wartości');
+		});
+	
+
+	
 });
 
-
- google.charts.load('current', {'packages':['gauge']});
- google.charts.setOnLoadCallback(drawChart);
-      function drawChart() {
-
-        var data = google.visualization.arrayToDataTable([
-          ['Label', 'Value'],
-          ['Bateria %', 100],
-          ['Moc %', 55],
-          ['Zużycie Gaz %', 68]
-        ]);
-
-        var options = {
-          width: 1000, height: 600,
-          redFrom: 90, redTo: 100,
-          yellowFrom:75, yellowTo: 90,
-          minorTicks: 5
-        };
-
-        var chart = new google.visualization.Gauge(document.getElementById('chart_div'));
-
-        chart.draw(data, options);
-
-        setInterval(function() {
+	    google.charts.load('current', {'packages':['gauge']});
+		google.charts.setOnLoadCallback(drawChart);
+function drawChart() {
+		
+		var data = google.visualization.arrayToDataTable([
+			['Label', 'Value'],
+			//['Memory', 80],
+			//['CPU', 55],
+			//['Network', 68],
+			['Napięcie noda',20 ],
+			['Poziom szamba', 20],
+			['Moc pozorna', 892.84],
+			['Moc czynna', 	810.48],	
+			['Pobór prądu', 3.99 ],
+			['Napięcie sieci', 224.73 ],
+			['Zuż. energii', 0.01159 ]
+		]);
+		
+		var options = {
+			width: 1000, height: 600,
+			redFrom: 9, redTo: 10,
+			yellowFrom:7, yellowTo: 9,
+			minorTicks: 10
+		};
+		
+		var chart = new google.visualization.Gauge(document.getElementById('chart_div'));
+		
+		chart.draw(data, options);
+		        setInterval(function() {
           data.setValue(0, 1, 40 + Math.round(60 * Math.random()));
           chart.draw(data, options);
         }, 13000);
@@ -62,7 +111,8 @@ sensmon.controller('AddCtrl', function ($scope) {
           data.setValue(2, 1, 60 + Math.round(20 * Math.random()));
           chart.draw(data, options);
         }, 26000);
-};
+	};
+	
  
 
 

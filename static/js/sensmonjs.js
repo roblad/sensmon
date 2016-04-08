@@ -207,8 +207,9 @@ sensmon.controller('dashCtrl', function ($scope, $http) {
     };
 
 	$http.get('/initv').success(function(data) {
-		console.log('Pobrano ostatnie wartości');
+		
         parseJSON(data);
+        console.log('Pobrano ostatnie wartości');
 	});
 });
 

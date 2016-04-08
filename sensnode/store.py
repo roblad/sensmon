@@ -139,7 +139,7 @@ class history():
     def closeconnectdb(self):
         return self.lvldb.close()
         
-    def get_toJSON(self, nodename, sensor, timerange='week'):
+    def get_toJSON(self, nodename, sensor, timerange='1h'):
         data = []
         if self.dbconnected:
             values = self.get(nodename, timerange)

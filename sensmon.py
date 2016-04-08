@@ -247,6 +247,17 @@ class GetInitData(BaseHandler):
         self.write(data_json)
         self.finish()
 
+class GetInitDataJson(BaseHandler):
+
+    @tornado.web.asynchronous
+    @tornado.gen.engine
+    def get(self):
+        self.set_header("Content-Type", "application/json")
+        _cl = tornadoredis.Client()
+        _initv = yield tornado.gen.Task(_cl.get, 'initv')
+        data_json = tornado.escape.json_decode(_initv)
+        self.write(data_json)
+        self.finish()
 
 # Websocket
 class Websocket(tornado.websocket.WebSocketHandler):
@@ -348,6 +359,7 @@ def main():
         (r"/login", LoginHandler),
         (r"/logout", LogoutHandler),
         (r"/initv", GetInitData),
+        (r"/jsondata",GetInitDataJson),
         (r"/history/(?P<node>[^\/]+)/?(?P<sensor>[^\/]+)?/?(?P<timerange>[^\/]+)?", GetHistoryData),
         (r"/websocket", Websocket),
         (r'/favicon.ico', tornado.web.StaticFileHandler, {'path': os.path.join(os.path.dirname(__file__), "static")})],
@@ -442,6 +454,11 @@ def main():
                 furtka_state = int(checkrelays(0))
                 brama_state = int(checkrelays(1))
                 podlewanie_blokada = int(checkrelays(5))
+                szambo_values = history.get_toJSON_last( 'emonitor', 'ftank','2d') 
+                if szambo_values == (1,1):
+                    tank_value = 1
+                else:
+                    tank_value = 0
                 p1 = history.get_toJSON_last( 'piec', 'trela1','1h')[0]
                 p2 = history.get_toJSON_last( 'piec', 'trela2','1h')[0]
                 p3 = history.get_toJSON_last( 'piec', 'trela3','1h')[0]
@@ -461,7 +478,8 @@ def main():
                          round((cena_gaz_last - cena_gaz_first),2),
                          furtka_state, 
                          brama_state,
-                         podlewanie_blokada)
+                         podlewanie_blokada,
+                         tank_value)
                 openpicklefilewrite = open(pickledir + '/' + picklefile, 'wb')
                 pickle.dump(store, openpicklefilewrite,-1 )
                 openpicklefilewrite.close()
@@ -483,6 +501,8 @@ def main():
                     print "opłata dziennego zuzycia wody: %s zł" % (cena_woda_last - cena_woda_first)
                     print "ostatnia wartosc dziennego zuzycia gazu: %s m3" % (gaz_last - gaz_first)
                     print "opłata dziennego zuzycia gazu: %s zł" % (cena_gaz_last - cena_gaz_first)
+                    print "blokada podlewania: %s " % podlewanie_blokada
+                    print "szambo przepelnione od 2 dni, sprawdzenie last:%s previous:%s, alarm:" % szambo_values, tank_value
                     try:
                         picklefilepodlewanie = 'datapodlewanie.pic'
                         openpicklefilepodlewanie = open(pickledir + '/' + picklefilepodlewanie, 'rb')

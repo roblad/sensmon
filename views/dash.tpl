@@ -25,8 +25,8 @@
                     <div class="menu">
                     <span ng-show="hoverEdit">
 					<a href="/graphs/{{! k}}/{{! i}}/week"><i class="fa fa-bar-chart-o"> Wykres</i></a>
-                    <!-- <a href="/{{! k}}/{{! i}}/setup"><i class="fa fa-wrench"></i></a>
-                    <a href="/{{! k}}/{{! i}}/action"><i class="fa fa-bolt"></i></a>-->
+                    <a href="/history/{{! k}}/{{! i}}/8h"><i class="fa fa-search""> Historia 8h</i></a>
+                    <!-- <a href="/{{! k}}/{{! i}}/action"><i class="fa fa-bolt"></i></a>-->
                      </span>
                 </div>
                 </td>
