@@ -8,6 +8,38 @@ import sys
 import os
 import cPickle as pickle
 
+
+
+def switchoffrelays(arg):
+    import commands
+    import sys
+    import os
+    import time
+    cmd_relay_off1_arch = 'sudo echo 01010|sudo netcat -c localhost 2000 2>/dev/null;sleep 1'
+    cmd_relay_off2_arch = 'sudo echo 01020|sudo netcat -c localhost 2000 2>/dev/null;sleep 1'
+    cmd_relay_off3_arch = 'sudo echo 01030|sudo netcat -c localhost 2000 2>/dev/null;sleep 1'
+    cmd_relay_off1_deb = 'sudo echo 01010|sudo netcat -C localhost 2000 2>/dev/null;sleep 1'
+    cmd_relay_off2_deb = 'sudo echo 01020|sudo netcat -C localhost 2000 2>/dev/null;sleep 1'
+    cmd_relay_off3_deb = 'sudo echo 01030|sudo netcat -C localhost 2000 2>/dev/null;sleep 1'
+    cmd_remove_flag = 'sudo rm -f /tmp/podlewanie.flg 2>/dev/null'
+    try:
+        if ((int (time.time()) - int (os.stat('/tmp/podlewanie.flg').st_mtime)) > arg) and ((int(os.path.isfile('/tmp/podlewanie.flg'))) == 1): 
+            os.system(cmd_relay_off1_arch)
+            os.system(cmd_relay_off2_arch)
+            os.system(cmd_relay_off3_arch)
+            os.system(cmd_relay_off1_deb)
+            os.system(cmd_relay_off2_deb)
+            os.system(cmd_relay_off3_deb)
+            os.system(cmd_remove_flag)
+            print "wylaczono podlewanie czas podlewania przekroczyl %s minut" % arg
+        
+        
+    except OSError:
+        print "Aktualnie sie nie podlewa"
+        pass
+
+
+
 def woda(data):
     """Pomiar:
     - swiatła,
@@ -43,8 +75,10 @@ def woda(data):
     c = float(data[4]) 
     d = float(data[5])#bateria
     e = float(data[6]) #pomiar woda
-    if p1 == 1 or p2 == 1 or p3 == 1:
+    switchoffrelays(1800)
+    if p1 == 1 or p2 == 1 or p3 == 1 and ((int (time.time()) - int (os.stat('/tmp/podlewanie.flg').st_mtime)) > 10):
         w4 = round((e - get_datapdl),2)
+        print "aktualnie sie podlewa stan - front: %s bok: %s taras: %s" % (p1,p2,p3)
     else:
         w4 = 0
     #else:

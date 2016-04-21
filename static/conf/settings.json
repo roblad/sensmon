@@ -13,6 +13,11 @@
     "redis": {
       "host": "localhost"
     },
+    "mqtt": {
+      "enable": 1,
+      "broker": "localhost",
+      "port": 1883
+    },
     "leveldb": {
       "enable": 1,
       "dbname": "_db",

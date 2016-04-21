@@ -31,7 +31,11 @@ def emonitor(data):
     g = float(data[21]) # moc czynna 
     h = float(data[22]) # moc pozorna 
     i = float(data[23]) # zuzycie
-    j = int(data[24]) # level 
+    j = abs(int(data[24])) # level 
+    if g == 'inf':
+        g = 0
+    elif h == 'inf':
+        h = 0 
     #j = data[18] # moc bierna 
     #k = data[19] # moc czynna 
     #l = data[20] # nume fazay 3 

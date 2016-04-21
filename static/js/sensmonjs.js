@@ -376,7 +376,7 @@ sensmon.controller('graphsCtrl', function ($route, $routeParams, $scope, $http, 
 		marginRight: 130,
 		marginBottom: 25,
 		data: chartData, name: "Odczyt", 
-		tooltip: {valueDecimals: 1 },
+		tooltip: {valueDecimals: 3 },
 		
 		});
   });

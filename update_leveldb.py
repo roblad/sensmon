@@ -7,7 +7,7 @@ import sys
 import time
 db = leveldb.DB("_db", create_if_missing=True)		
 wb = db.write_batch()
-with open("del.log") as f:
+with open("delete.log") as f:
     wb = db.write_batch(transaction=True)
     for line in f:
         line = line.rstrip('\n')
@@ -56,7 +56,7 @@ import sys
 
 db = leveldb.DB("_db", create_if_missing=True)
 wb = db.write_batch(transaction=True)
-with open("key.log") as f:
+with open("woda.log") as f:
     for line in f:
         line = line.rstrip('\n')
         value = line.rstrip('\n')
@@ -85,7 +85,7 @@ import plyvel as leveldb
 import os
 import sys
 
-imput ='outdoor'
+imput ='woda'
 
 db = leveldb.DB("_db", create_if_missing=True)
 file = open("/sensmon/"+imput+".log", "w")

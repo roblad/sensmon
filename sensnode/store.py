@@ -149,12 +149,12 @@ class history():
             return data
             
             
-    def get_toJSON_last(self, nodename, sensor, timerange='1h'):
+    def get_toJSON_last(self, nodename, sensor, timerange='day'):
        data = []
        if self.dbconnected:
            values = self.get(nodename, timerange)
            # milliseconds for JavaScript
            #data = [[ast.literal_eval(v)['timestamp'] *1000, ast.literal_eval(v)[sensor]] for v in values]
-           data = [ ast.literal_eval(v)[sensor] for v in values]
+           data = [ ast.literal_eval(v)[sensor] for (v) in values]
            
            return data[-1], data[0]

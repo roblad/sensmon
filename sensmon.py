@@ -12,6 +12,7 @@ from datetime import date
 # https://github.com/leporo/tornado-redis
 import tornadoredis
 import paho.mqtt.publish as mqtt
+import paho.mqtt.client as mqttclient
 
 import simplejson as json
 # http://pymotw.com/2/multiprocessing
@@ -64,7 +65,7 @@ define("leveldb_path",default=config().get("app", ['leveldb', 'path']),
 define("leveldb_forgot",default=config().get("app", ['leveldb', 'forgot']),
         help="Forgot nodes data")
 # MQTT
-define("mqtt_enable",default=config().get("app", ['mqtt', 'disable']),
+define("mqtt_enable",default=config().get("app", ['mqtt', 'enable']),
 		help="MQTT enabled")
 define("mqtt_broker",default=config().get("app", ['mqtt', 'broker']),
 		help="MQTT broker IP")
@@ -314,7 +315,8 @@ def publish(jsondata):
     """
     name = jsondata['name']
     for k, v in jsondata.iteritems():
-        mqtt.single("/sensmon/%s/%s" % (name, k), v, hostname=options.mqtt_broker, port=options.mqtt_port)
+        mqtt.single(("/%s/%s" % (name, k)), v, hostname=options.mqtt_broker, port=options.mqtt_port)
+    print "MQTT updated for %s " % name
 
 
     
@@ -454,7 +456,7 @@ def main():
                 furtka_state = int(checkrelays(0))
                 brama_state = int(checkrelays(1))
                 podlewanie_blokada = int(checkrelays(5))
-                szambo_values = history.get_toJSON_last( 'emonitor', 'ftank','2d') 
+                szambo_values = history.get_toJSON_last( 'emonitor', 'ftank','week') 
                 if szambo_values == (1,1):
                     tank_value = 1
                 else:
@@ -502,7 +504,7 @@ def main():
                     print "ostatnia wartosc dziennego zuzycia gazu: %s m3" % (gaz_last - gaz_first)
                     print "opłata dziennego zuzycia gazu: %s zł" % (cena_gaz_last - cena_gaz_first)
                     print "blokada podlewania: %s " % podlewanie_blokada
-                    print "szambo przepelnione od 2 dni, sprawdzenie last:%s previous:%s, alarm:" % szambo_values, tank_value
+                    print "szambo przepelnione od 7 dni, sprawdzenie last:%s previous:%s, alarm:" % szambo_values, tank_value
                     try:
                         picklefilepodlewanie = 'datapodlewanie.pic'
                         openpicklefilepodlewanie = open(pickledir + '/' + picklefilepodlewanie, 'rb')
@@ -512,8 +514,10 @@ def main():
                     except UnboundLocalError:
                         print "wartosc wody pobrana do obliczania podlewania: %s m3" % 0
             except   ValueError:
+                print "Prawdopodobnie błędne wartości leveldb sprawdz"
                 pass
             except IndexError:
+                print "Prawdopodobnie zawieszony node piec, zrestartuj lub brak danych dziennych"
                 pass
                 
 #-------------------tu  pisac swoje koniec --------------------- 

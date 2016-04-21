@@ -62,7 +62,7 @@ def piec(data):
         'temp': f,     #c
         'temp1ds': h,  #Temp. boiler
         'temp2ds': j,  #Temp. wejścia solar.
-        'temp3ds': float(k),  #Temp. powrot solar.
+        'temp3ds': k,  #Temp. powrot solar.
         'temp4ds': l,  #Temp. wyj. piec
         'temp5ds': i,  #Temp. pow. piec
         'trela1': int(p),
