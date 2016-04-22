@@ -513,9 +513,9 @@ def main():
                         print "wartosc wody pobrana do obliczania podlewania: %s m3" % get_datapdl
                     except UnboundLocalError:
                         print "wartosc wody pobrana do obliczania podlewania: %s m3" % 0
-            except   ValueError:
-                print "Prawdopodobnie błędne wartości leveldb sprawdz"
-                pass
+            #except   ValueError:
+                #print "Prawdopodobnie błędne wartości leveldb sprawdz"
+                #pass
             except IndexError:
                 print "Prawdopodobnie zawieszony node piec, zrestartuj lub brak danych dziennych"
                 pass

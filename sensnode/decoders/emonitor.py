@@ -28,14 +28,18 @@ def emonitor(data):
     d = float(data[6]) # prad 1 
     e = float(data[11]) # prad 2  
     f = float(data[16]) # prad 3 
-    g = float(data[21]) # moc czynna 
-    h = float(data[22]) # moc pozorna 
+    #g = float(data[21]) # moc czynna 
+    #h = float(data[22]) # moc pozorna 
+    if data[21] == 'inf' or data[21] == 'ovf' or data[21] == 'nan':
+        g = 0
+    else:
+        g = float(data[21]) # moc czynna 
+    if data[22] == 'inf' or data[22] == 'ovf' or data[22] == 'nan':
+        h = 0
+    else:
+        h = float(data[22])
     i = float(data[23]) # zuzycie
     j = abs(int(data[24])) # level 
-    if g == 'inf':
-        g = 0
-    elif h == 'inf':
-        h = 0 
     #j = data[18] # moc bierna 
     #k = data[19] # moc czynna 
     #l = data[20] # nume fazay 3 
